@@ -324,7 +324,7 @@ Observations
 
 ---
 
-| x   | analytical u | numerical u | stress | analytical stress |
+| x   | analytical displacement | numerical displacement | numerical stress | analytical stress |
 |-----|--------------|-------------|--------|-------------------|
 |   0 |            0 |           0 | 1.2979 |            1.2977 |
 | 0.1 |       0.1298 |      0.1298 | 1.3109 |            1.3107 |
