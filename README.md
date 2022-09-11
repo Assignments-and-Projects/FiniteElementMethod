@@ -1,7 +1,7 @@
 
 
 
-![Assignment uploaded on Github](https://github.com/notcamelcase01/FiniteElementMethod/edit/main/README.md) 
+[Assignment uploaded on Github](https://github.com/notcamelcase01/FiniteElementMethod/edit/main/README.md) 
 
 # FemAssignments
 
