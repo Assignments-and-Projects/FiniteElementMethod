@@ -90,13 +90,13 @@ $=>$  $u(x) = \frac{e}{e^2+1}(e^x-e^{-x})$
 
 ## **Deriving Weak Form**
 
-$\int_{1}^{2}\delta u(\frac{d^2u}{dx^2} - u) = 0$
+$\int_{1}^{2}\delta u(\frac{d^2u}{dx^2} - u)dx = 0$
 
 $\delta u$ is weight function that varies linearly like u since we are going to take linear approximation for our calculations  
 
 Evaluating further
 
-$\int_{1}^{2}(\frac{d}{dx}(\delta u \frac{du}{dx}) -  \frac{\delta u}{dx}\frac{du}{dx} -\delta u u) = 0$
+$\int_{1}^{2}(\frac{d}{dx}(\delta u \frac{du}{dx}) -  \frac{d\delta u}{dx}\frac{du}{dx} -\delta u u) = 0$
 
 According to our method our $u$ varies linearly and it will be according to the following equation.
 
