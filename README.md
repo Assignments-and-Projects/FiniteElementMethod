@@ -230,7 +230,7 @@ $\left.\frac{du}{dx} \right|_{x=l} = \frac{F}{EA} + \alpha \Delta T$
 
 and, Finally putting value of **F** in our governing equation
 
-$\frac{d}{dx}[EA\frac{du}{dx}-\alpha \Delta T] - ku =0$
+$\frac{d}{dx}[EA(\frac{du}{dx}-\alpha \Delta T)] - ku =0$
 
 Finally Putting values of constants in our equations, questions have asked us to take all constants as unity, so be it.
 
