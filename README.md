@@ -1,7 +1,7 @@
 
 
 
-[Assignment uploaded on Github](https://github.com/notcamelcase01/FiniteElementMethod/edit/main/README.md) 
+[Assignment uploaded on Github](https://github.com/notcamelcase01/FiniteElementMethod/blob/main/README.md) 
 
 # FemAssignments
 
@@ -135,7 +135,7 @@ there by leading to
 
 $F^N = \mathbf Ku$
 
-For integrating above expression numerically we will be using **Gauss Quadrature** method and we will tak **2** gauss points as 2 points will be sufficient to accurately give our answer to polynomial integration.
+For integrating above expression numerically we will be using **Gauss Quadrature** method and we will take **2** gauss points as 2 points will be sufficient to accurately give our answer to polynomial integration.
 
 Analysis Procedure
 - We will run [This code](https://github.com/notcamelcase01/FemAssignments/blob/master/AssignmentFEMQ1.m) on octave to get values of displacements and stresses.
@@ -314,10 +314,10 @@ there by leading to
 
 $F^N = \mathbf Ku$
 
-For integrating above expression numerically we will be using **Gauss Quadrature** method and we will tak **2** gauss points as 2 points will be sufficient to accurately give our answer to polynomial integration.
+For integrating above expression numerically we will be using **Gauss Quadrature** method and we will take **2** gauss points as 2 points will be sufficient to accurately give our answer to polynomial integration.
 
 Analysis Procedure
-- We will run [This code](https://github.com/notcamelcase01/FemAssignments/blob/master/AssignmentFEMQ1.m) on octave to get values of displacements and stresses.
+- We will run [This code](https://github.com/notcamelcase01/FemAssignments/blob/master/AssignmentFEMQ2.m) on octave to get values of displacements and stresses.
 - We will also compare numerically calculated stresses and displacement with our analytical solution i.e $=>$  $u(x) = \frac{2e}{e^2+1}(e^x-e^{-x})$ 
 - We will plot graph of displacement for each node.
 
