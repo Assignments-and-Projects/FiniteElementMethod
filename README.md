@@ -252,7 +252,9 @@ $2\frac{d^2u}{dx^2} - u =0$ for $x \in (0,1)$
  
 $u(0) = 0$
  
-$\frac{du}{dx} = 2$ at $x = 1$  { $\left.\frac{du}{dx} \right|_{x=1} = (\frac{F}{EA}=1) + (\alpha \Delta T =1)$  }
+$\frac{du}{dx} = 2$ at $x = 1$ 
+
+{ $\left.\frac{du}{dx} \right|_{x=1} = (\frac{F}{EA}=1) + (\alpha \Delta T =1)$  }
 
 ---------------------------------------------------------------------
 
