@@ -1,7 +1,8 @@
 
 
 
-[Assignment uploaded on Github](https://github.com/notcamelcase01/FiniteElementMethod/blob/main/README.md) 
+
+[Github](https://github.com/notcamelcase01/FiniteElementMethod/blob/main/README.md) 
 
 # FemAssignments
 
@@ -205,20 +206,32 @@ Force Balance on an arbitrary element at distance $x$ from bar
 
 $u(x)$ is total displacement including temperature expansion.
 
-$F(x +\Delta x) - F(x) - k\Delta x  u(x) = 0$ 	 
+Also, $\sigma = E(\epsilon - \alpha \Delta T)$
+
+$F(x +\Delta x) - F(x) - k\Delta x  u(x) + EA\frac{[u(x+\Delta x) + \Delta x \alpha \Delta T]}{\Delta x} -  EA\frac{[u(x) + \Delta x\alpha \Delta T]}{\Delta x} = 0$ 	 
 
 Dividing whole Equation by $\Delta x$
 
-$\frac{ F(x + \Delta x) - F(\Delta x) }{ \Delta x } - k u(x)$ = 0
+$\frac{(F(x +\Delta x) - F(x))}{\Delta x} -  k u(x) + EA\frac{[u(x+\Delta x) + \Delta x \alpha \Delta T]}{(\Delta x)^{2}} -  EA\frac{[u(x) + \Delta x\alpha \Delta T]}{(\Delta x)^{2}} = 0$ 	 
+
+<br>
 
 Take limit as $\Delta x \to 0$
 
-$\frac{dF} {dx} - ku = 0$        {Note : Here $u = u(x)$} 
+Now;
+
+$\frac {u(x)}{\Delta x} =  \epsilon (x)$      ;  $\frac{u(x+\Delta x)}{\Delta x} = \epsilon (x+\Delta x)$ 
+
+
+
+$\frac{dF} {dx} - ku + \frac {d\epsilon}{dx} = 0$        {Note : Here $u = u(x)$} 
 
 $\sigma = \frac{F}{A}$ also $\sigma = E(\frac{du}{dx}-\alpha \Delta T)$  
 
 **E** = Elasticity modulus, **A**= Cross Sectional Area 
 Thus,
+
+$\frac {d\epsilon}{dx} = \frac{d^2u}{dx^2}$
 
 $F = EA(\frac{du}{dx}-\alpha \Delta T)$
 
@@ -226,25 +239,25 @@ Known Boundary Conditions
 
 $u(0) = 0$
 
-$\left.\frac{du}{dx} \right|_{x=l} = \frac{F}{EA} + \alpha \Delta T$
+$\left.\frac{du}{dx} \right|_{x=l} = \frac{F}{EA} + \alpha \Delta T$ 
 
 and, Finally putting value of **F** in our governing equation
 
-$\frac{d}{dx}[EA(\frac{du}{dx}-\alpha \Delta T)] - ku =0$
+$\frac{d}{dx}[EA(\frac{du}{dx}-\alpha \Delta T)] - ku + \frac{d^2u}{dx^2}=0$
 
 Finally Putting values of constants in our equations, questions have asked us to take all constants as unity, so be it.
 
 --------------------------------------------------------------------
-$\frac{d^2u}{dx^2} - u =0$ for $x \in (0,1)$
+$2\frac{d^2u}{dx^2} - u =0$ for $x \in (0,1)$
  
 $u(0) = 0$
  
-$\frac{du}{dx} = 2$ at $x = 1$
+$\frac{du}{dx} = 2$ at $x = 1$  { $\left.\frac{du}{dx} \right|_{x=1} = (\frac{F}{EA}=1) + (\alpha \Delta T =1)$  }
 
 ---------------------------------------------------------------------
 
 
-Solving   $\frac{d^2u}{dx^2} - u =0$ for $x \in (0,1)$
+Solving   $2\frac{d^2u}{dx^2} - u =0$ for $x \in (0,1)$
 
 with Boundary conditions
 
@@ -254,14 +267,14 @@ $\frac{du}{dx} = 2$ at $x = 1$
 
 We get 
 
-$=>$  $u(x) = \frac{2e}{1+e^2}(e^x - e^{-x})$
+$=>$  $u(x) =  \frac{2\sqrt[]{2}e^{(1-x)/\sqrt[]{2}}(e^{\sqrt[]{2}x}-1)}{1+e^{\sqrt[]{2}}}$
 <br>
 
 Finally we get our analytical solution any any $x$.
 
 
 
-$=>$  $u(x) = \frac{2e}{e^2+1}(e^x-e^{-x})$ 
+$=>$ $u(x) =  \frac{2\sqrt[]{2}e^{(1-x)/\sqrt[]{2}}(e^{\sqrt[]{2}x}-1)}{1+e^{\sqrt[]{2}}}$
 -
 
 <br>
@@ -269,13 +282,13 @@ $=>$  $u(x) = \frac{2e}{e^2+1}(e^x-e^{-x})$
 
 ## **Deriving Weak Form**
 
-$\int_{1}^{2}\delta u(\frac{d^2u}{dx^2} - u)dx = 0$
+$\int_{1}^{2}\delta u(2\frac{d^2u}{dx^2} - u)dx = 0$
 
 $\delta u$ is weight function that varies linearly like u since we are going to take linear approximation for our calculations  
 
 Evaluating further
 
-$\int_{1}^{2}(\frac{d}{dx}(\delta u \frac{du}{dx}) -  \frac{d\delta u}{dx}\frac{du}{dx} -\delta u u)dx = 0$
+$\int_{1}^{2}(2\frac{d}{dx}(\delta u \frac{du}{dx}) -  2\frac{d\delta u}{dx}\frac{du}{dx} -\delta u u)dx = 0$
 
 According to our method our $u$ varies linearly and it will be according to the following equation.
 
@@ -297,18 +310,18 @@ $\frac{du}{dx} = \mathbf Bu$
 
 Putting above equations in our integral and simplifying 
 
-$\left. \delta u \frac{du}{dx} \right|_{1}^{2} = \int \delta u^{T} \mathbf B^{T} \mathbf B u dx + \int  \delta u^T \mathbf N^T \mathbf N  u dx$
+$=2\left. \delta u \frac{du}{dx} \right|_{1}^{2} = 2\int \delta u^{T} \mathbf B^{T} \mathbf B u dx + \int  \delta u^T \mathbf N^T \mathbf N  u dx$
 
 <br>
 
 
-$F^N \delta u^T =  \delta u^T u ( \int \mathbf B^T \mathbf B + \mathbf N^T \mathbf N )dx$
+$=F^N \delta u^T =  \delta u^T u ( \int \mathbf B^T \mathbf B + 0.5\mathbf N^T \mathbf N )dx$
 
 <br>
 
 We can very conveniently compare above expression to $F=Kx$ as we write
 
-$\mathbf K = \int( \mathbf B^T \mathbf B + \mathbf N^T \mathbf N )dx$
+$\mathbf K = \int( \mathbf B^T \mathbf B + 0.5\mathbf N^T \mathbf N )dx$
 
 there by leading to
 
@@ -318,35 +331,35 @@ For integrating above expression numerically we will be using **Gauss Quadrature
 
 Analysis Procedure
 - We will run [This code](https://github.com/notcamelcase01/FemAssignments/blob/master/AssignmentFEMQ2.m) on octave to get values of displacements and stresses.
-- We will also compare numerically calculated stresses and displacement with our analytical solution i.e $=>$  $u(x) = \frac{2e}{e^2+1}(e^x-e^{-x})$ 
+- We will also compare numerically calculated stresses and displacement with our analytical solution i.e $=>$  $u(x) =  \frac{2\sqrt[]{2}e^{(1-x)/\sqrt[]{2}}(e^{\sqrt[]{2}x}-1)}{1+e^{\sqrt[]{2}}}$
 - We will plot graph of displacement for each node.
 
 Observations 
 
 - Number of Elements : 10
-- Root Mean Square Error (Displacements)  = $1.9632*10^{-04}$
+- Root Mean Square Error (Displacements)  = $6.6957*10^{-05}$
 
 ---
 
-| x   | analytical displacement | numerical displacement | numerical stress | analytical stress |
-|-----|--------------|-------------|--------|-------------------|
-|   0 |            0 |           0 | 1.2979 |            1.2977 |
-| 0.1 |       0.1298 |      0.1298 | 1.3109 |            1.3107 |
-| 0.2 |        0.261 |      0.2609 |  1.337 |            1.3368 |
-| 0.3 |       0.3947 |      0.3946 | 1.3765 |            1.3763 |
-| 0.4 |       0.5324 |      0.5322 | 1.4298 |            1.4296 |
-| 0.5 |       0.6754 |      0.6752 | 1.4975 |            1.4971 |
-| 0.6 |       0.8252 |       0.825 | 1.5801 |            1.5797 |
-| 0.7 |       0.9832 |       0.983 | 1.6786 |            1.6781 |
-| 0.8 |       1.1511 |      1.1508 | 1.7938 |            1.7932 |
-| 0.9 |       1.3305 |      1.3302 | 1.9271 |            1.9263 |
-|   1 |       1.5232 |      1.5229 |      2 |                 2 |
+| x   | analytical displacement | numerical displacement | stress | analytical stress |
+|-----|-------------------------|------------------------|--------|-------------------|
+|   0 |         0              |                      0 | 0.5877 |            0.5866 |
+| 0.1 |                  0.1588 |                 0.1588 | 0.5957 |            0.5905 |
+| 0.2 |                  0.3184 |                 0.3183 | 0.6116 |            0.6024 |
+| 0.3 |                  0.4795 |                 0.4795 | 0.6356 |            0.6224 |
+| 0.4 |                  0.6431 |                 0.6431 | 0.6678 |            0.6504 |
+| 0.5 |                  0.8099 |                 0.8098 | 0.7083 |            0.6868 |
+| 0.6 |                  0.9807 |                 0.9807 | 0.7574 |            0.7315 |
+| 0.7 |                  1.1565 |                 1.1564 | 0.8153 |            0.7849 |
+| 0.8 |                   1.338 |                 1.3379 | 0.8822 |            0.8472 |
+| 0.9 |                  1.5263 |                 1.5262 | 0.9586 |            0.9188 |
+|   1 |                  1.7221 |                  1.722 |      1 |                 1 |
 
 
 ---
 
 - Graph of Displacement vs x
 
-![image](https://i.imgur.com/vDixAWs.png)
+![image](https://i.imgur.com/ubjKYhF.png)
 
 ----------
