@@ -62,10 +62,12 @@ endfunction
 function rootMeanSquare = GetRootMeanSquareErrorInDisplacement(x,u,n)
   rootMeanSquare = 0;
   for i = 1:n
-    y(i) = (exp(x(i)) - exp(-x(i)))/(exp(1)+exp(-1))
+    y(i) = (exp(x(i)) - exp(-x(i)))/(exp(1)+exp(-1));
     rootMeanSquare+=(u(i) - y(i))*(u(i) - y(i));
   end
   rootMeanSquare = sqrt(rootMeanSquare/n);
+  numerical_displacement = u
+  analytical_displacement = y'
 endfunction
 
 
@@ -119,6 +121,7 @@ for i = 1:numberOfElements
   xx = (x(i)+x(i+1))/2;
   analyticalstress(i) = ((exp(xx) + exp(-xx))/(exp(1)+exp(-1)));
 end
-
+numerical_stress = stress'
+analytical_stress = analyticalstress'
 ##--------------------------------------------------------------------------------##
 
