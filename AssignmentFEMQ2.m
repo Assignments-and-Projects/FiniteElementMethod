@@ -62,15 +62,17 @@ endfunction
 function rootMeanSquare = GetRootMeanSquareErrorInDisplacement(x,u,n)
   rootMeanSquare = 0;
   for i = 1:n
-    y(i) = -(exp(2)*x(i)+x(i)+3*exp(1-x(i))-3*exp(x(i)+1))/(1+exp(2));
+    y(i) = -(exp(2)*x(i)+x(i)+2*exp(1-x(i))-2*exp(x(i)+1))/(1+exp(2));
     rootMeanSquare+=(u(i) - y(i))*(u(i) - y(i));
   end
   rootMeanSquare = sqrt(rootMeanSquare/n);
-  numerical_displacement = u
-  analytical_displacement = y'
+  analytical_displacement = y' + x' ##adding displacement by temperature change
 endfunction
 
-
+function total_displacement = GetDisplacementAfterAddingTemperatureChange(u,x)
+    total_displacement = u + x'; ##adding displacement by temperature change
+    numerical_displacement = total_displacement
+endfunction
 
 
 ##--------------------------------MAIN FUNCTION---------------------------------##
@@ -85,7 +87,7 @@ connectivityMatrix = GetConnectivityMatrix(numberOfElements);
 [weightOfGaussPoints,gaussPoints] = InitializeGaussPoints();
 
 [globalStiffnessMatrix , forceVector] = InitializeForceStiffnessMatrices(numberOfNodes);
-forceVector(end) = 2; ##due to boundary condition (du/dx = F+a DeltaT at x=1)  we will have this as 2
+forceVector(end) = 1;
 
 
 for element = 1:numberOfElements
@@ -102,8 +104,9 @@ for element = 1:numberOfElements
 end
 
 [globalStiffnessMatrix,forceVector] = BoundaryConditionProcessOfElimination(globalStiffnessMatrix,forceVector,1,0);
-u = GetDisplacementVector(globalStiffnessMatrix,forceVector);
 
+u = GetDisplacementVector(globalStiffnessMatrix,forceVector);
+total_displacement = GetDisplacementAfterAddingTemperatureChange(u,x);
 
 rootMeanSquareError = GetRootMeanSquareErrorInDisplacement(x,u,numberOfNodes)
 
@@ -121,7 +124,7 @@ end
 
 for i = 1:numberOfElements
   xx = (x(i)+x(i+1))/2;
-  analyticalstress(i) = -(-3*exp(1-xx)-3*exp(xx+1)+(1+exp(2)))/(1+exp(2));
+  analyticalstress(i) = -(-2*exp(1-xx) - 2 * exp(xx+1) + (1+exp(2)))/(1+exp(2));
 end
 numerical_stress = stress'
 analytical_stress = analyticalstress'
