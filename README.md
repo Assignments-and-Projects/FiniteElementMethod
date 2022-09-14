@@ -207,8 +207,10 @@ Force Balance on an arbitrary element at distance $x$ from bar
 
 Total Displacement at position $x$ on bar is ($u(x) + \alpha \Delta T x$)
 
+Total Displacement : $u(x) + \alpha \Delta T x$  Displacement because of force and spring separately
 
-Also, $\sigma = E(\epsilon - \alpha \Delta T)$
+
+Also, $\sigma = E(\epsilon)$ note the strain is not due to thermal displacements
 
 $F(x +\Delta x) - F(x) - k\Delta x( u(x) + x \alpha \Delta T)= 0$ 	 
 
@@ -225,7 +227,7 @@ Now;
 
 $\frac{dF} {dx} - ku - x = 0$        {Note : Here $u = u(x)$} 
 
-$\sigma = \frac{F}{A}$ also $\sigma = E(\frac{du}{dx}-\alpha \Delta T)$  
+$\sigma = \frac{F}{A}$ also $\sigma = E(\frac{du}{dx})$  
 
 **E** = Elasticity modulus, **A**= Cross Sectional Area 
 Thus,
@@ -236,11 +238,11 @@ Known Boundary Conditions
 
 $u(0) = 0$
 
-$\left.\frac{du}{dx} \right|_{x=l} = \frac{F}{EA} + \alpha \Delta T$ 
+$\left.\frac{du}{dx} \right|_{x=l} = 1$ 
 
 and, Finally putting value of **F** in our governing equation
 
-$\frac{d}{dx}[EA(\frac{du}{dx}-\alpha \Delta T)] - ku + -x=0$
+$\frac{d}{dx}[EA(\frac{du}{dx}-\alpha \Delta T)] - ku  -x=0$
 
 Finally Putting values of constants in our equations, questions have asked us to take all constants as unity, so be it.
 
@@ -249,9 +251,8 @@ $\frac{d^2u}{dx^2} - u -x =0$ for $x \in (0,1)$
  
 $u(0) = 0$
  
-$\frac{du}{dx} = 2$ at $x = 1$ 
+$\frac{du}{dx} = 1$ at $x = 1$ 
 
-{ $\left.\frac{du}{dx} \right|_{x=1} = (\frac{F}{EA}=1) + (\alpha \Delta T =1)$  }
 
 ---------------------------------------------------------------------
 
@@ -262,18 +263,18 @@ with Boundary conditions
 
 $u(0) = 0$
  
-$\frac{du}{dx} = 2$ at $x = 1$
+$\frac{du}{dx} = 1$ at $x = 1$
 
 We get 
 
-$=>$  $u(x) = \frac{3e^{x+1}-3e^{1-x}-x-xe^2}{1+e^2}$
+$=>$  $u(x) = -\frac{e^2x+x+2e^{1-x}-2e^{x+1}}{1+e^2}$
 <br>
 
 Finally we get our analytical solution any any $x$.
 
 
 
-$=>$  $u(x) = \frac{3e^{x+1}-3e^{1-x}-x-xe^2}{1+e^2}$
+$=>$  $=>$  $u(x) = -\frac{e^2x+x+2e^{1-x}-2e^{x+1}}{1+e^2}$
 -
 
 <br>
@@ -309,12 +310,12 @@ $\frac{du}{dx} = \mathbf Bu$
 
 Putting above equations in our integral and simplifying 
 
-$=\left. \delta u \frac{du}{dx} \right|_{1}^{2} = \int \delta u^{T} \mathbf B^{T} \mathbf B u dx + \int  \delta u^T \mathbf N^T \mathbf N  u dx + \int \delta u^T  \mathbf N^Tdx$
+$=\left. \delta u \frac{du}{dx} \right|_{1}^{2} = \int \delta u^{T} \mathbf B^{T} \mathbf B u dx + \int  \delta u^T \mathbf N^T \mathbf N  u dx + \int \delta u^T  \mathbf N^Txdx$
 
 <br>
 
 
-$=>F^N \delta u^T =  \delta u^T u ( \int \mathbf B^T \mathbf B + \mathbf N^T \mathbf N )dx + \int \delta u^T  \mathbf N^Tdx$
+$=>F^N \delta u^T =  \delta u^T u ( \int \mathbf B^T \mathbf B + \mathbf N^T \mathbf N )dx + \int \delta u^T  \mathbf N^Txdx$
 
 <br>
 
@@ -324,7 +325,7 @@ $\mathbf K = \int( \mathbf B^T \mathbf B + \mathbf N^T \mathbf N )dx$
 
 and
 
- $F^B =\int \delta u^T  \mathbf N^Tdx$
+ $F^B =\int \delta u^T  \mathbf N^Txdx$
 
 there by leading to
 
@@ -334,32 +335,32 @@ For integrating above expression numerically we will be using **Gauss Quadrature
 
 Analysis Procedure
 - We will run [This code](https://github.com/notcamelcase01/FemAssignments/blob/master/AssignmentFEMQ2.m) on octave to get values of displacements and stresses.
-- We will also compare numerically calculated stresses and displacement with our analytical solution i.e $=>$ $u(x) = \frac{3e^{x+1}-3e^{1-x}-x-xe^2}{1+e^2}$
+- We will also compare numerically calculated stresses and displacement with our analytical solution i.e $=>$ $=>$  $u(x) = -\frac{e^2x+x+2e^{1-x}-2e^{x+1}}{1+e^2}$
 - We will plot graph of displacement for each node.
 
 Observations 
 
 - Number of Elements : 10
-- Root Mean Square Error (Displacements)  = $2.994*10^{-04}$
+- Root Mean Square Error (Displacements)  = $1.994*10^{-04}$
 
 ---
 | x   | analytical displacement | numerical displacement | stress | analytical stress |
 |-----|-------------------------|------------------------|--------|-------------------|
-|   0 |                       0 |                      0 | 0.9468 |            0.9466 |
-| 0.1 |                  0.0947 |                 0.0947 | 0.9663 |            0.9661 |
-| 0.2 |                  0.1914 |                 0.1913 | 1.0055 |            1.0052 |
-| 0.3 |                   0.292 |                 0.2919 | 1.0648 |            1.0645 |
-| 0.4 |                  0.3986 |                 0.3983 | 1.1447 |            1.1444 |
-| 0.5 |                  0.5131 |                 0.5128 | 1.2462 |            1.2457 |
-| 0.6 |                  0.6378 |                 0.6374 | 1.3701 |            1.3695 |
-| 0.7 |                  0.7748 |                 0.7744 | 1.5178 |            1.5171 |
-| 0.8 |                  0.9266 |                 0.9262 | 1.6907 |            1.6898 |
-| 0.9 |                  1.0957 |                 1.0953 | 1.8906 |            1.8895 |
-|   1 |                  1.2848 |                 1.2844 |      2 |                 2 |
+|   0 |                       0 |                      0 | 0.2979 |            0.2977 |
+| 0.1 |                  0.1298 |                 0.1298 | 0.3109 |            0.3107 |
+| 0.2 |                   0.261 |                 0.2609 |  0.337 |            0.3368 |
+| 0.3 |                  0.3947 |                 0.3946 | 0.3765 |            0.3763 |
+| 0.4 |                  0.5324 |                 0.5322 | 0.4298 |            0.4296 |
+| 0.5 |                  0.6754 |                 0.6752 | 0.4975 |            0.4971 |
+| 0.6 |                  0.8252 |                  0.825 | 0.5801 |            0.5797 |
+| 0.7 |                  0.9832 |                  0.983 | 0.6786 |            0.6781 |
+| 0.8 |                  1.1511 |                 1.1508 | 0.7938 |            0.7932 |
+| 0.9 |                  1.3305 |                 1.3302 | 0.9271 |            0.9263 |
+|   1 |                  1.5232 |                 1.5229 |      1 |                 1 |
 ---
 
 - Graph of Displacement vs x
 
-![image](https://i.imgur.com/aDoM1tn.png)
+![image](https://i.imgur.com/6JUappJ.png)
 
 ----------
