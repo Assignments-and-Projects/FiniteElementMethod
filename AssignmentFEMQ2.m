@@ -62,7 +62,7 @@ endfunction
 function rootMeanSquare = GetRootMeanSquareErrorInDisplacement(x,u,n)
   rootMeanSquare = 0;
   for i = 1:n
-    y(i) = (exp((-x(i)+1)/sqrt(2))*(exp(sqrt(2)*x(i))-1)*2*sqrt(2))/(1+exp(sqrt(2)));
+    y(i) = -(exp(2)*x(i)+x(i)+3*exp(1-x(i))-3*exp(x(i)+1))/(1+exp(2));
     rootMeanSquare+=(u(i) - y(i))*(u(i) - y(i));
   end
   rootMeanSquare = sqrt(rootMeanSquare/n);
@@ -85,7 +85,7 @@ connectivityMatrix = GetConnectivityMatrix(numberOfElements);
 [weightOfGaussPoints,gaussPoints] = InitializeGaussPoints();
 
 [globalStiffnessMatrix , forceVector] = InitializeForceStiffnessMatrices(numberOfNodes);
-forceVector(end) = 1;
+forceVector(end) = 2; ##due to boundary condition (du/dx = F+a DeltaT at x=1)  we will have this as 2
 
 
 for element = 1:numberOfElements
@@ -93,13 +93,14 @@ for element = 1:numberOfElements
   [kloc,floc] = InitializeForceStiffnessMatrices(2);
   for igp = 1:length(weightOfGaussPoints)
     [xx,Nmat,Bmat] = GetShapeFunctionLinearApproximation(x,n,gaussPoints(igp));
-    kloc = kloc + (Bmat'*Bmat + Nmat'* Nmat*0.5) * (x(n(end))-x(n(1)))/2 * weightOfGaussPoints(igp);
+    kloc = kloc + (Bmat'*Bmat + Nmat'* Nmat) * (x(n(end))-x(n(1)))/2 * weightOfGaussPoints(igp);
+    floc = floc + xx*Nmat'*(x(n(end))-x(n(1)))/2 * weightOfGaussPoints(igp);
   end
   iv = GetAssemblyVector(n);
+  forceVector(iv) = forceVector(iv) - floc;
   globalStiffnessMatrix(iv,iv) = globalStiffnessMatrix(iv,iv) + kloc;
 end
 
-forceVector(end) += 1;
 [globalStiffnessMatrix,forceVector] = BoundaryConditionProcessOfElimination(globalStiffnessMatrix,forceVector,1,0);
 u = GetDisplacementVector(globalStiffnessMatrix,forceVector);
 
@@ -115,12 +116,12 @@ for element = 1:numberOfElements
   n = GetNodePointsAssociatedWithElement(connectivityMatrix,element,1);
   uloc = [u(n(1)) u(n(2))]';
   Bmat = [-1/(x(n(2))-x(n(1)))   1/(x(n(2))-x(n(1)))];
-  stress(element) = -1+(1*Bmat*uloc);
+  stress(element) = (1*Bmat*uloc);
 end
 
 for i = 1:numberOfElements
   xx = (x(i)+x(i+1))/2;
-  analyticalstress(i) = -1+(exp((-x(i)+1)/sqrt(2))*(exp(sqrt(2)*x(i))+1)*2)/(1+exp(sqrt(2)));
+  analyticalstress(i) = -(-3*exp(1-xx)-3*exp(xx+1)+(1+exp(2)))/(1+exp(2));
 end
 numerical_stress = stress'
 analytical_stress = analyticalstress'
