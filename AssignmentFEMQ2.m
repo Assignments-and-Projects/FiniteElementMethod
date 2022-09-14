@@ -110,7 +110,7 @@ total_displacement = GetDisplacementAfterAddingTemperatureChange(u,x);
 
 rootMeanSquareError = GetRootMeanSquareErrorInDisplacement(x,u,numberOfNodes)
 
-plot(x,u,'-o')
+plot(x,total_displacement,'-o')
 ##--------------------------------------------------------------------------------##
 
 
