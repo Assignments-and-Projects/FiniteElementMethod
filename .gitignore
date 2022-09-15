@@ -1,6 +1,6 @@
 *
 
-# But not these files...
+# Ignoring all files except assignment submissions
 !.gitignore
 !AssignmentOnePDF.pdf
 !README.md
