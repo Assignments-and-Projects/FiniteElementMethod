@@ -1,0 +1,8 @@
+*
+
+# But not these files...
+!.gitignore
+!AssignmentOnePDF.pdf
+!README.md
+!AssignmentFEMQ1.m
+!AssignmentFEMQ2.m
