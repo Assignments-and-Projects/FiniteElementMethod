@@ -373,6 +373,11 @@ Observations
 
 
 ---
+
+
+
+
+---
 ## Assigment 2
 
 ### Question 1
@@ -603,13 +608,32 @@ We can very conveniently compare above expression to
 
 $ KT = F^B$
 
-$\mathbf K = \int[r \mathbf B^T \mathbf B + \frac{\mathbf N^T \mathbf N}{r}] \space ;\space F^B =\int[r\mathbf N^T\mathbf B + \mathbf N^T\mathbf N]drr$
+$\mathbf K = \int[r \mathbf B^T \mathbf B + \frac{\mathbf N^T \mathbf N}{r}] \space ;\space F^B =\int[r\mathbf N^T\mathbf B + \mathbf N^T\mathbf N]dr$
 
 For integrating above expression numerically we will be using **Gauss Quadrature** method and we will take **2** gauss points as 2 points will be sufficient to accurately give our answer to polynomial integration.
 
 Analysis Procedure
 - We will run [This code](https://github.com/notcamelcase01/FiniteElementMethod/blob/main/Assignment2FEMQ2.m) on octave to get values of Temperature.
 - We will plot graph of displacement for each node.
+
+Observations
+
+---
+| x   | numerical displacement |   |   |   |
+|-----|------------------------|---|---|---|
+|   1 |                      0 |   |   |   |
+| 1.1 |                11.9357 |   |   |   |
+| 1.2 |                21.9235 |   |   |   |
+| 1.3 |                30.3346 |   |   |   |
+| 1.4 |                37.4399 |   |   |   |
+| 1.5 |                43.4425 |   |   |   |
+| 1.6 |                48.4984 |   |   |   |
+| 1.7 |                52.7298 |   |   |   |
+| 1.8 |                56.2341 |   |   |   |
+| 1.9 |                59.0903 |   |   |   |
+|   2 |                61.3632 |   |   |   |
+
+---
 
  Graph of Displacement vs r
 
