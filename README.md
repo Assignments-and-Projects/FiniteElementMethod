@@ -368,6 +368,11 @@ Observations
 
 
 
+
+
+
+
+---
 ## Assigment 2
 
 ### Question 1
@@ -532,34 +537,15 @@ $\sigma_{\theta \theta} = E(\frac{u}{r} - \alpha T)$
 
 Putting values of constants in the DE
 
-$\frac{1}{r}\frac {d}{dr}(r(\frac{du}{dr} - T))-\frac{1}{r}E(\frac{u}{r} - T)=0$ 	 
+$\frac{1}{r}\frac {d}{dr}(r(\frac{du}{dr} - T))-\frac{1}{r}(\frac{u}{r} - T)=0$ 	 
 
-Solving  the above equation for $r \in (1,2)$
-
-with Boundary conditions
-
-$u(1) = 0$
- 
-$\left. \sigma_{rr} \right|_{r=2} = 0$
-
-We get 
-
-$=>$  $T(r) = \frac{(401 - r^2)\log(2)+317\log(r)}{\log(16)}$
-<br>
-
-Finally we get our analytical solution any any $x$.
-
-
-
-$=>$   $T(r) = \frac{(401 - r^2)\log(2)+317\log(r)}{\log(16)}$
--
 
 <br>
 
 
 ## **Deriving Weak Form**
 
-$\int\delta u [\frac{1}{r}\frac {d}{dr}(r(\frac{du}{dr} - T))-\frac{1}{r}E(\frac{u}{r} - T)]rdr=0$ 	 
+$\int\delta u [\frac{1}{r}\frac {d}{dr}(r(\frac{du}{dr} - T))-\frac{1}{r}(\frac{u}{r} - T)]rdr=0$ 	 
 
 *Note : $r$ is the Jacobian of cylindrical coordinate*
 
@@ -567,13 +553,13 @@ $\delta uu$ is residue that varies linearly like u since we are going to take li
 
 Evaluating further
 
-$\int [\delta u\frac {d}{dr}(r(\frac{du}{dr} - T))-\delta uE(\frac{u}{r} - T)]dr=0$ 	 
+$\int [\delta u\frac {d}{dr}(r(\frac{du}{dr} - T))-\delta u(\frac{u}{r} - T)]dr=0$ 	 
 
 Applying uv rule in first term
 
-$\int [\frac {d}{dr}\delta u(r(\frac{du}{dr} - T)) - r\frac{d\delta u}{dr}(\frac{du}{dr} - T)-E(\frac{u}{r} - T)]dr=0$ 	 
+$\int [\frac {d}{dr}\delta u(r(\frac{du}{dr} - T)) - r\frac{d\delta u}{dr}(\frac{du}{dr} - T)-(\frac{u}{r} - T)]dr=0$ 	 
 
-$\left. \delta u(r(\frac{du}{dr} - T)) \right|_{1}^{2} = \int  r\frac{d\delta u}{dr}(\frac{du}{dr} - T)dr+\int \delta u E(\frac{u}{r} - T)dr=0$ 	 
+$\left. \delta u(r(\frac{du}{dr} - T)) \right|_{1}^{2} = \int  r\frac{d\delta u}{dr}(\frac{du}{dr} - T)dr+\int \delta u (\frac{u}{r} - T)dr=0$ 	 
 
 Since $\sigma_{rr} = 0$ at $r=2$ and $u = 0$ at $r=1$
 
@@ -623,33 +609,9 @@ For integrating above expression numerically we will be using **Gauss Quadrature
 
 Analysis Procedure
 - We will run [This code](https://github.com/notcamelcase01/FiniteElementMethod/blob/main/Assignment2FEMQ2.m) on octave to get values of Temperature.
-- We will also compare numerically calculated temperature and temperature with our analytical solution i.e $=>$  $T(r) = \frac{(401 - r^2)\log(2)+317\log(r)}{\log(16)}$
 - We will plot graph of displacement for each node.
 
-Observations 
-
-- Number of Elements : 10
-- Root Mean Square Error (Displacements)  = $4.0995*10^{-03}$
-
-----
-
-| x   | analytical Temperatures | numerical temperatures |   |   |
-|-----|-------------------------|------------------------|---|---|
-|   1 |                     100 |                    100 |   |   |
-| 1.1 |                   89.05 |                 89.054 |   |   |
-| 1.2 |                  79.045 |                  79.05 |   |   |
-| 1.3 |                   69.83 |                 69.836 |   |   |
-| 1.4 |                   61.29 |                 61.296 |   |   |
-| 1.5 |                  53.329 |                 53.335 |   |   |
-| 1.6 |                  45.873 |                 45.878 |   |   |
-| 1.7 |                  38.859 |                 38.863 |   |   |
-| 1.8 |                  32.236 |                 32.239 |   |   |
-| 1.9 |                  25.962 |                 25.963 |   |   |
-|   2 |                      20 |                     20 |   |   |
-
----
-
-- Graph of Displacement vs r
+ Graph of Displacement vs r
 
 ![image](https://i.imgur.com/mqsvNjC.png)
 
