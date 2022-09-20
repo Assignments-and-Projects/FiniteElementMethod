@@ -72,7 +72,7 @@ endfunction
 
 ##--------------------------------MAIN FUNCTION---------------------------------##
 
-numberOfElements = 20;
+numberOfElements = 10;
 numberOfNodes = numberOfElements + 1;
 
 x = GetNodePoints(numberOfNodes,2,1)

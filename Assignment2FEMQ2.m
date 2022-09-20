@@ -96,7 +96,7 @@ for element = 1:numberOfElements
   forceVector(iv) = forceVector(iv) + floc;
   globalStiffnessMatrix(iv,iv) = globalStiffnessMatrix(iv,iv) + kloc;
 end
-
+forceVector(end) = 725.117;
 [globalStiffnessMatrix,forceVector] = BoundaryConditionProcessOfElimination(globalStiffnessMatrix,forceVector,1,100);
 [globalStiffnessMatrix,forceVector] = BoundaryConditionProcessOfElimination(globalStiffnessMatrix,forceVector,numberOfNodes,20);
 numerical_temperature = GetDisplacementVector(globalStiffnessMatrix,forceVector)
@@ -128,12 +128,12 @@ for element = 1:numberOfElements
   n = GetNodePointsAssociatedWithElement(connectivityMatrix,element,1);
   uloc = [numerical_displacement(n(1)) numerical_displacement(n(2))]';
   Bmat = [-1/(x(n(2))-x(n(1)))   1/(x(n(2))-x(n(1)))];
-  stress(element) = (1*Bmat*uloc);
+  stress(element) = (1*Bmat*uloc)- (numerical_temperature(element+1));
 end
-stress(element+1) = 20; ##as we see stress converges to 20 when we increase number of elements
+stress(element+1) = 0; ##as we see stress converges to 0 when we increase number of elements
 
 numerical_stress = stress'
-plot(x,stress','-o');
+plot(x,numerical_displacement,'-o');
 ##--------------------------------------------------------------------------------##
 
 
