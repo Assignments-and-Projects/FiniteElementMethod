@@ -364,3 +364,293 @@ Observations
 ![image](https://i.imgur.com/6JUappJ.png)
 
 ----------
+
+
+
+
+## Assigment 2
+
+### Question 1
+
+![image](https://i.imgur.com/rWic0wC.png)
+
+
+
+### Solution 1 
+
+- Code File:  [Question 1 Mfile](https://github.com/notcamelcase01/FiniteElementMethod/blob/main/Assignment2FEMQ1.m)
+
+## **Deriving Governing Equation**
+
+Given differential Equation for temperature :
+
+$\frac {k}{r}\frac {d}{dr}(r\frac{dT}{dr})+g=0$ 	 
+
+Putting values of constants in the DE
+
+$\frac{1}{r}\frac{d}{dr}(r\frac{dT}{dr})+1=0$
+
+Solving  the above equation for $r \in (1,2)$
+
+with Boundary conditions
+
+$T(1) = 100$
+ 
+$T(2) = 20$
+
+$\dot Q= \frac{2\pi k (\Delta T)}{\ln(\frac{r_2}{r_1})} = \frac{2\pi  (80)}{\ln(2)} = 725.117$
+
+We get 
+
+$=>$  $T(r) = \frac{(401 - r^2)\log(2)+317\log(r)}{\log(16)}$
+<br>
+
+Finally we get our analytical solution any any $x$.
+
+
+
+$=>$   $T(r) = \frac{(401 - r^2)\log(2)+317\log(r)}{\log(16)}$
+-
+
+<br>
+
+
+## **Deriving Weak Form**
+
+$\int \delta T[\frac{1}{r}\frac{d}{dr}(r\frac{dT}{dr})+1]rdr=0$
+
+*Note : $r$ is the Jacobian of cylindrical coordinate*
+
+$\delta T$ is residue that varies linearly like T since we are going to take linear approximation for **Galerkin method**
+
+Evaluating further
+
+$\int \delta T[\frac{d}{dr}(r\frac{dT}{dr})+r]dr=0$
+
+Applying uv rule in first term
+
+$\int [\frac{d}{dr}(\delta T r \frac{dT}{dr}) - \frac{d\delta T}{dr}r\frac{dT}{dr}+\delta Tr]dr = 0$
+
+$\left. \delta T r \frac{dT}{dr}\right|_{1}^{2} = \int[r\frac{d\delta T}{dr}\frac{dT}{dr} - \delta Tr]dr$
+
+Heat flow per unite length at outer surface of cylinder
+
+$\dot Q= 725.117$
+
+
+According to our method our $u$ varies linearly and it will be according to the following equation. Following are the elemental matrices to be integrated
+
+$T = N_{1}T_{1} + N_{2}T_{2}$
+
+$N_{1} = \frac{(r - r_{2})}{(r_{1}-r_{2})}$
+
+$N_{2} = \frac{(r - r_{1})}{(r_{2}-r_{1})}$
+
+$\mathbf N =   \begin{bmatrix} N_{1} \   \  N_{2}\end{bmatrix}$
+
+$\mathbf B = \mathbf N^{'} =  \begin{bmatrix} N_{1}^{'} \   \  N_{2}^{'}\end{bmatrix}$
+
+$\delta T = \mathbf N\delta T$
+
+$T = \mathbf N T$
+
+$\frac{dT}{dr} = \mathbf B T$
+
+Putting above matrices in our integral and simplifying 
+
+$\left. \delta T r \frac{dT}{dr}\right|_{1}^{2} = \int[r\frac{d\delta T}{dr}\frac{dT}{dr} - \delta Tr]dr$
+
+<br>
+
+
+$F^N \delta u^T =  \delta T^T T ( \int r\mathbf B^T \mathbf B )dr -\delta T^T\int r \mathbf N^{'}dr$
+
+
+
+We can very conveniently compare above expression to 
+
+$F^N = KT - F^B$
+
+$\mathbf K = \int r\mathbf B^T \mathbf Bdr \space ;\space F^B = \int r \mathbf N^{'}dr$
+
+For integrating above expression numerically we will be using **Gauss Quadrature** method and we will take **2** gauss points as 2 points will be sufficient to accurately give our answer to polynomial integration.
+
+Analysis Procedure
+- We will run [This code](https://github.com/notcamelcase01/FiniteElementMethod/blob/main/Assignment2FEMQ1.m) on octave to get values of Temperature.
+- We will also compare numerically calculated temperature and temperature with our analytical solution i.e $=>$  $T(r) = \frac{(401 - r^2)\log(2)+317\log(r)}{\log(16)}$
+- We will plot graph of displacement for each node.
+
+Observations 
+
+- Number of Elements : 10
+- Root Mean Square Error (Displacements)  = $4.0995*10^{-03}$
+
+----
+
+| x   | analytical Temperatures | numerical temperatures |   |   |
+|-----|-------------------------|------------------------|---|---|
+|   1 |                     100 |                    100 |   |   |
+| 1.1 |                   89.05 |                 89.054 |   |   |
+| 1.2 |                  79.045 |                  79.05 |   |   |
+| 1.3 |                   69.83 |                 69.836 |   |   |
+| 1.4 |                   61.29 |                 61.296 |   |   |
+| 1.5 |                  53.329 |                 53.335 |   |   |
+| 1.6 |                  45.873 |                 45.878 |   |   |
+| 1.7 |                  38.859 |                 38.863 |   |   |
+| 1.8 |                  32.236 |                 32.239 |   |   |
+| 1.9 |                  25.962 |                 25.963 |   |   |
+|   2 |                      20 |                     20 |   |   |
+
+---
+
+- Graph of Temperature vs r
+
+![image](https://i.imgur.com/YGkbdSF.png)
+
+-----
+
+
+### Question 2
+
+![image](https://i.imgur.com/SEF6fEB.png)
+
+
+
+### Solution 2 
+
+- Code File:  [Question 2 Mfile](https://github.com/notcamelcase01/FiniteElementMethod/blob/main/Assignment2FEMQ2.m)
+
+## **Deriving Governing Equation**
+
+Given differential Equation for temperature :
+
+$\frac{1}{r}\frac {d}{dr}(r\sigma_{rr})-\frac{1}{r}\sigma_{\theta \theta}=0$ 	 
+
+$\sigma_{rr} = E(\frac{du}{dr} - \alpha T)$
+$\sigma_{\theta \theta} = E(\frac{u}{r} - \alpha T)$
+
+
+Putting values of constants in the DE
+
+$\frac{1}{r}\frac {d}{dr}(r(\frac{du}{dr} - T))-\frac{1}{r}E(\frac{u}{r} - T)=0$ 	 
+
+Solving  the above equation for $r \in (1,2)$
+
+with Boundary conditions
+
+$u(1) = 0$
+ 
+$\left. \sigma_{rr} \right|_{r=2} = 0$
+
+We get 
+
+$=>$  $T(r) = \frac{(401 - r^2)\log(2)+317\log(r)}{\log(16)}$
+<br>
+
+Finally we get our analytical solution any any $x$.
+
+
+
+$=>$   $T(r) = \frac{(401 - r^2)\log(2)+317\log(r)}{\log(16)}$
+-
+
+<br>
+
+
+## **Deriving Weak Form**
+
+$\int\delta u [\frac{1}{r}\frac {d}{dr}(r(\frac{du}{dr} - T))-\frac{1}{r}E(\frac{u}{r} - T)]rdr=0$ 	 
+
+*Note : $r$ is the Jacobian of cylindrical coordinate*
+
+$\delta uu$ is residue that varies linearly like u since we are going to take linear approximation for **Galerkin method**
+
+Evaluating further
+
+$\int [\delta u\frac {d}{dr}(r(\frac{du}{dr} - T))-\delta uE(\frac{u}{r} - T)]dr=0$ 	 
+
+Applying uv rule in first term
+
+$\int [\frac {d}{dr}\delta u(r(\frac{du}{dr} - T)) - r\frac{d\delta u}{dr}(\frac{du}{dr} - T)-E(\frac{u}{r} - T)]dr=0$ 	 
+
+$\left. \delta u(r(\frac{du}{dr} - T)) \right|_{1}^{2} = \int  r\frac{d\delta u}{dr}(\frac{du}{dr} - T)dr+\int \delta u E(\frac{u}{r} - T)dr=0$ 	 
+
+Since $\sigma_{rr} = 0$ at $r=2$ and $u = 0$ at $r=1$
+
+$0= \int  r\frac{d\delta u}{dr}(\frac{du}{dr} - T)dr+\int \delta u (\frac{u}{r} - T)dr=0$ 	 
+
+
+According to our method our $u$ varies linearly and it will be according to the following equation. Following are the elemental matrices to be integrated
+
+$u = N_{1}u_{1} + N_{2}u_{2}$
+
+$N_{1} = \frac{(r - r_{2})}{(r_{1}-r_{2})}$
+
+$N_{2} = \frac{(r - r_{1})}{(r_{2}-r_{1})}$
+
+$\mathbf N =   \begin{bmatrix} N_{1} \   \  N_{2}\end{bmatrix}$
+
+$\mathbf B = \mathbf N^{'} =  \begin{bmatrix} N_{1}^{'} \   \  N_{2}^{'}\end{bmatrix}$
+
+$\delta u = \mathbf N\delta u$
+
+$T = \mathbf N T$
+
+$u = \mathbf N u$
+
+$\frac{du}{dr} = \mathbf B u$
+
+Putting above matrices in our integral and simplifying 
+
+$0= \int r\delta u^T \mathbf B^T(\mathbf B u - \mathbf N T)dr+\int \delta u \mathbf N^T(\frac{\mathbf N u}{r} - \mathbf T)dr$ 	 
+<br>
+
+$\delta u^T u\int[r \mathbf B^T \mathbf B + \frac{\mathbf N^T \mathbf N}{r}]dr=T^T \delta u^T\int[r\mathbf N^T\mathbf B + \mathbf N^T\mathbf N]dr$
+
+<br>
+
+$Ku = TF^B$
+
+
+
+We can very conveniently compare above expression to 
+
+$ KT = F^B$
+
+$\mathbf K = \int[r \mathbf B^T \mathbf B + \frac{\mathbf N^T \mathbf N}{r}] \space ;\space F^B =\int[r\mathbf N^T\mathbf B + \mathbf N^T\mathbf N]drr$
+
+For integrating above expression numerically we will be using **Gauss Quadrature** method and we will take **2** gauss points as 2 points will be sufficient to accurately give our answer to polynomial integration.
+
+Analysis Procedure
+- We will run [This code](https://github.com/notcamelcase01/FiniteElementMethod/blob/main/Assignment2FEMQ2.m) on octave to get values of Temperature.
+- We will also compare numerically calculated temperature and temperature with our analytical solution i.e $=>$  $T(r) = \frac{(401 - r^2)\log(2)+317\log(r)}{\log(16)}$
+- We will plot graph of displacement for each node.
+
+Observations 
+
+- Number of Elements : 10
+- Root Mean Square Error (Displacements)  = $4.0995*10^{-03}$
+
+----
+
+| x   | analytical Temperatures | numerical temperatures |   |   |
+|-----|-------------------------|------------------------|---|---|
+|   1 |                     100 |                    100 |   |   |
+| 1.1 |                   89.05 |                 89.054 |   |   |
+| 1.2 |                  79.045 |                  79.05 |   |   |
+| 1.3 |                   69.83 |                 69.836 |   |   |
+| 1.4 |                   61.29 |                 61.296 |   |   |
+| 1.5 |                  53.329 |                 53.335 |   |   |
+| 1.6 |                  45.873 |                 45.878 |   |   |
+| 1.7 |                  38.859 |                 38.863 |   |   |
+| 1.8 |                  32.236 |                 32.239 |   |   |
+| 1.9 |                  25.962 |                 25.963 |   |   |
+|   2 |                      20 |                     20 |   |   |
+
+---
+
+- Graph of Displacement vs r
+
+![image](https://i.imgur.com/mqsvNjC.png)
+
+-----
