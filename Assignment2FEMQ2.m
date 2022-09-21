@@ -1,6 +1,6 @@
 clear
 close all
-clc
+
 
 
 ##----------------------------------FUNCTION DEFINATIONS-------------------------##
@@ -96,6 +96,7 @@ for element = 1:numberOfElements
   forceVector(iv) = forceVector(iv) + floc;
   globalStiffnessMatrix(iv,iv) = globalStiffnessMatrix(iv,iv) + kloc;
 end
+globalStiffnessMatrix
 forceVector(end) = 725.117;
 [globalStiffnessMatrix,forceVector] = BoundaryConditionProcessOfElimination(globalStiffnessMatrix,forceVector,1,100);
 [globalStiffnessMatrix,forceVector] = BoundaryConditionProcessOfElimination(globalStiffnessMatrix,forceVector,numberOfNodes,20);
@@ -114,25 +115,17 @@ for element = 1:numberOfElements
   for igp = 1:length(weightOfGaussPoints)
     [xx,Nmat,Bmat] = GetShapeFunctionLinearApproximation(x,n,gaussPoints(igp));
     kloc = kloc + (Bmat'*Bmat*xx + Nmat'*Nmat/xx) * (x(n(end))-x(n(1)))/2 * weightOfGaussPoints(igp); ##inner radius cannot be 0
-    floc = floc + ((Nmat'*Nmat + xx*Bmat'*Nmat)*(x(n(end))-x(n(1)))/2 * weightOfGaussPoints(igp))*[numerical_temperature(n(1)) numerical_temperature(n(2))]';
+    floc = floc + ((Nmat'*Nmat + xx*Bmat'*Nmat)*(x(n(end))-x(n(1)))/2 * weightOfGaussPoints(igp));
   end
   iv = GetAssemblyVector(n);
-  forceVector(iv) = forceVector(iv) + floc;
+  T_loc = [numerical_temperature(n(1)) numerical_temperature(n(2))]';
+  forceVector(iv) = forceVector(iv) + floc*T_loc;
   globalStiffnessMatrix(iv,iv) = globalStiffnessMatrix(iv,iv) + kloc;
 end
 
 [globalStiffnessMatrix,forceVector] = BoundaryConditionProcessOfElimination(globalStiffnessMatrix,forceVector,1,0);
 numerical_displacement = GetDisplacementVector(globalStiffnessMatrix,forceVector)
 
-for element = 1:numberOfElements
-  n = GetNodePointsAssociatedWithElement(connectivityMatrix,element,1);
-  uloc = [numerical_displacement(n(1)) numerical_displacement(n(2))]';
-  Bmat = [-1/(x(n(2))-x(n(1)))   1/(x(n(2))-x(n(1)))];
-  stress(element) = (1*Bmat*uloc)- (numerical_temperature(element+1));
-end
-stress(element+1) = 0; ##as we see stress converges to 0 when we increase number of elements
-
-numerical_stress = stress'
 plot(x,numerical_displacement,'-o');
 ##--------------------------------------------------------------------------------##
 
