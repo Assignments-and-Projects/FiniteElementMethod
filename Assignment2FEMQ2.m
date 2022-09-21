@@ -96,7 +96,6 @@ for element = 1:numberOfElements
   forceVector(iv) = forceVector(iv) + floc;
   globalStiffnessMatrix(iv,iv) = globalStiffnessMatrix(iv,iv) + kloc;
 end
-globalStiffnessMatrix
 forceVector(end) = 725.117;
 [globalStiffnessMatrix,forceVector] = BoundaryConditionProcessOfElimination(globalStiffnessMatrix,forceVector,1,100);
 [globalStiffnessMatrix,forceVector] = BoundaryConditionProcessOfElimination(globalStiffnessMatrix,forceVector,numberOfNodes,20);
