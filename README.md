@@ -378,6 +378,11 @@ Observations
 
 
 ---
+
+
+
+
+---
 ## Assigment 2
 
 ### Question 1
@@ -473,7 +478,7 @@ $\left. \delta T r \frac{dT}{dr}\right|_{1}^{2} = \int[r\frac{d\delta T}{dr}\fra
 <br>
 
 
-$F^N \delta u^T =  \delta T^T T ( \int r\mathbf B^T \mathbf B )dr -\delta T^T\int r \mathbf N^{'}dr$
+$F^N \delta u^T =  \delta T^T T ( \int r\mathbf B^T \mathbf B )dr -\delta T^T\int r \mathbf N^{T}dr$
 
 
 
@@ -481,7 +486,7 @@ We can very conveniently compare above expression to
 
 $F^N = KT - F^B$
 
-$\mathbf K = \int r\mathbf B^T \mathbf Bdr \space ;\space F^B = \int r \mathbf N^{'}dr$
+$\mathbf K = \int r\mathbf B^T \mathbf Bdr \space ;\space F^B = \int r \mathbf N^{T}dr$
 
 For integrating above expression numerically we will be using **Gauss Quadrature** method and we will take **2** gauss points as 2 points will be sufficient to accurately give our answer to polynomial integration.
 
@@ -600,13 +605,10 @@ $\delta u^T u\int[r \mathbf B^T \mathbf B + \frac{\mathbf N^T \mathbf N}{r}]dr=T
 
 <br>
 
-$Ku = TF^B$
-
-
 
 We can very conveniently compare above expression to 
 
-$ KT = F^B$
+$Ku = TF^B$
 
 $\mathbf K = \int[r \mathbf B^T \mathbf B + \frac{\mathbf N^T \mathbf N}{r}] \space ;\space F^B =\int[r\mathbf N^T\mathbf B + \mathbf N^T\mathbf N]dr$
 
